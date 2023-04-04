@@ -136,13 +136,22 @@ local function GrappleRefuel(mission, pawn, weaponId, p1, p2)
 		if weaponId ~= "Move" then mission.Para_Silica_Actions = mission.Para_Silica_Actions + 1 end
 		if weaponId == "Move" then mission.Para_Silica_Moved = true end
 	end
-	if pawn:IsAbility("Post_Move") or pawn:IsAbility("Shifty") then
-		if weaponId == "Move" and not mission.Para_Grapple_Refuel[pawn:GetId() + 1] and mission.Para_Archen_Refuel then
+	if pawn:IsAbility("Shifty") then
+		if weaponId == "Move" and not mission.Para_Grapple_Refuel[pawn:GetId() + 1] and mission.Para_Chen_Refuel then
 			Board:AddAlert(pawn:GetSpace(),"REACTIVATED")
 			pawn:SetActive(true)
 		end
 		if weaponId ~= "Move" and not mission.Para_Grapple_Refuel[pawn:GetId() + 1] then
-			mission.Para_Archen_Refuel = false
+			mission.Para_Chen_Refuel = false
+		end
+	end
+	if pawn:IsAbility("Post_Move") then
+		if weaponId == "Move" and not mission.Para_Grapple_Refuel[pawn:GetId() + 1] and mission.Para_Archie_Refuel then
+			Board:AddAlert(pawn:GetSpace(),"REACTIVATED")
+			pawn:SetActive(true)
+		end
+		if weaponId ~= "Move" and not mission.Para_Grapple_Refuel[pawn:GetId() + 1] then
+			mission.Para_Archie_Refuel = false
 		end
 	end
 	if weaponId == "Brute_Grapple_B" or weaponId == "Brute_Grapple_AB" then
@@ -168,9 +177,14 @@ local function RefuelTracker(mission, pawn, weaponId, p1, p2, p3)
 	if pawn:IsAbility("Double_Shot") then
 		mission.Para_Silica_Actions = mission.Para_Silica_Actions + 1
 	end
-	if pawn:IsAbility("Post_Move") or pawn:IsAbility("Shifty") then
+	if pawn:IsAbility("Shifty") then
 		if not mission.Para_Grapple_Refuel[pawn:GetId() + 1] then
-			mission.Para_Archen_Refuel = false
+			mission.Para_Chen_Refuel = false
+		end
+	end
+	if pawn:IsAbility("Post_Move") then
+		if not mission.Para_Grapple_Refuel[pawn:GetId() + 1] then
+			mission.Para_Archie_Refuel = false
 		end
 	end
 	if pawn:IsAbility("Double_Shot") and (mission.Para_Silica_Grapples >= mission.Para_Silica_Actions - 1) and mission.Para_Silica_Refuels<2 and mission.Para_Silica_Grapples>0 and mission.Para_Silica_Actions>1 then
@@ -209,7 +223,8 @@ for i,v in pairs(Mission) do
 					GetCurrentMission().Para_Silica_Actions = 0
 					GetCurrentMission().Para_Silica_Grapples = 0
 					GetCurrentMission().Para_Silica_Refuels = 0
-					GetCurrentMission().Para_Archen_Refuel = true
+					GetCurrentMission().Para_Chen_Refuel = true
+					GetCurrentMission().Para_Archie_Refuel = true
 				end
             end 
             return oldfn(...) 
