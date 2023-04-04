@@ -113,12 +113,6 @@ Brute_Grapple_A = Brute_Grapple:new{
 
 Brute_Grapple_B = Brute_Grapple:new{
 	Refuel = true,
-	TipImage = {
-		Unit = Point(2,2),
-		Friendly = Point(1,0),
-		Target = Point(0,2),
-		Building = Point(0,2),
-	},
 }
 
 Brute_Grapple_AB = Brute_Grapple_A:new{
