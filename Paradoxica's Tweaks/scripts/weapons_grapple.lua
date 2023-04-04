@@ -126,6 +126,7 @@ local function GrappleRefuel(mission, pawn, weaponId, p1, p2)
 		return
 	end
 	if mission == nil then return end
+	if pawn == nil then return end
 	if pawn:IsAbility("Double_Shot") then
 		if weaponId ~= "Move" then mission.Para_Silica_Actions = mission.Para_Silica_Actions + 1 end
 		if weaponId == "Move" then mission.Para_Silica_Moved = true end
@@ -168,6 +169,7 @@ end
 
 local function RefuelTracker(mission, pawn, weaponId, p1, p2, p3)
 	if mission == nil then return end
+	if pawn == nil then return end
 	if pawn:IsAbility("Double_Shot") then
 		mission.Para_Silica_Actions = mission.Para_Silica_Actions + 1
 	end
